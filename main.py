@@ -33,16 +33,16 @@ async def on_ready():
 async def m(ctx, *, message, user : discord.Member = None):
     command = message.lower()
     if "help" in command:
-        embed = discord.Embed(title='Electron, a Discord Bot')
+        embed = discord.Embed(title='Ultron, a Ultra Discord Bot')
                          
 
         embed.set_thumbnail(url='https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Electron_Software_Framework_Logo.svg/1200px-Electron_Software_Framework_Logo.svg.png')
 
         embed.set_author(name="Electron", icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Electron_Software_Framework_Logo.svg/1200px-Electron_Software_Framework_Logo.svg.png")
 
-        embed.add_field(name="What Electron can do?", value="> Provide Results From Wikipedia.\n> Provide the URL For Your Query from YouTube and YouTube Music.\n> Provide the weather Forecast From your Country/State/City.\n> Tell jokes When You're Bored.\n> Convert Text To QR Code.\n> And more stuffs...", inline=False)
+        embed.add_field(name="What Ultron can do?", value="> Provide Results From Wikipedia.\n> Provide the URL For Your Query from YouTube and YouTube Music.\n> Provide the weather Forecast From your Country/State/City.\n> Tell jokes When You're Bored.\n> Convert Text To QR Code.\n> And more stuffs...", inline=False)
 
-        embed.add_field(name="Commands", value="> `m help`\n  Use 'm' and ask your Queries!...", inline=False)
+        embed.add_field(name="Commands", value="> `hpm help`\n  Use 'hpm' and ask your Queries!...", inline=False)
 
       
 
