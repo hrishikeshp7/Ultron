@@ -1,3 +1,4 @@
+import os
 import discord
 from discord.ext import commands
 from discord.ext.commands.core import command
@@ -172,6 +173,6 @@ async def m(ctx, *, message, user : discord.Member = None):
         await ctx.send(news_content.url)
 
 keep_alive()
-client.run("TOKEN")
+client.run(os.getenv("TOKEN"))
 
 
