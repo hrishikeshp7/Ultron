@@ -1,4 +1,3 @@
-import os
 import discord
 from discord.ext import commands
 from discord.ext.commands.core import command
@@ -14,33 +13,32 @@ import datetime
 import io
 from keep_alive import keep_alive
 from PyDictionary import PyDictionary
-import requests
-import json 
 import news_python
+import bitlyshortener
+import os
 
 
-client = commands.Bot(command_prefix="hp")
-Time = str(time.strftime("%H:%M %p"))
+
+client = commands.Bot(command_prefix="h")
+
 client.remove_command("help")
-
-
 
 @client.command()
 async def on_ready():
     print(Time)
 
 @client.command()
-async def m(ctx, *, message, user : discord.Member = None):
+async def p(ctx, *, message, user : discord.Member = None):
     command = message.lower()
     if "help" in command:
-        embed = discord.Embed(title='Ultron, a Ultra Discord Bot')
+        embed = discord.Embed(title='Electron, a Discord Bot')
                          
 
         embed.set_thumbnail(url='https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Electron_Software_Framework_Logo.svg/1200px-Electron_Software_Framework_Logo.svg.png')
 
         embed.set_author(name="Electron", icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Electron_Software_Framework_Logo.svg/1200px-Electron_Software_Framework_Logo.svg.png")
 
-        embed.add_field(name="What Ultron can do?", value="> Provide Results From Wikipedia.\n> Provide the URL For Your Query from YouTube and YouTube Music.\n> Provide the weather Forecast From your Country/State/City.\n> Tell jokes When You're Bored.\n> Convert Text To QR Code.\n> And more stuffs...", inline=False)
+        embed.add_field(name="What Electron can do?", value="> Provide Results From Wikipedia.\n> Provide the URL For Your Query from YouTube and YouTube Music.\n> Provide the weather Forecast From your Country/State/City.\n> Tell jokes When You're Bored.\n> Convert Text To QR Code.\n> And more stuffs...", inline=False)
 
         embed.add_field(name="Commands", value="> `hpm help`\n  Use 'hpm' and ask your Queries!...", inline=False)
 
@@ -55,11 +53,11 @@ async def m(ctx, *, message, user : discord.Member = None):
         await ctx.send(embed=em)
 
     elif "hi" in command:
-        em=discord.Embed(title="Hi",color=discord.Color.red())
+        em=discord.Embed(title="Hi",color=discord.Color.blue())
         await ctx.send(embed=em)
 
     elif "born" in command:
-        em=discord.Embed(title="6 May 2021",color=discord.Color.red())
+        em=discord.Embed(title="6 May 2021",color=discord.Color.blue())
         await ctx.send(embed=em)
 
     elif "weather" in command:
@@ -84,16 +82,6 @@ async def m(ctx, *, message, user : discord.Member = None):
         GET_content = requests.get(url)
         Play_Content = GET_content.text
         await ctx.send(Play_Content)
-
-
-		elif "meaning" in command:	
-			
-        message = message.replace("meaning of ", "")
-        dictionary = PyDictionary()
-        Dic = dictionary.meaning(message)
-        DicList = list(Dic['Noun'])
-        em=discord.Embed(title=message,color=discord.Color.red(), description=DicList[0])
-        await ctx.send(embed=em)		
 
     elif "music" in command:
         url = "https://pywhatkit.herokuapp.com/playonyt?topic=" + message + " Album - Topic"
@@ -124,7 +112,7 @@ async def m(ctx, *, message, user : discord.Member = None):
             await ctx.send(url)
 
     elif "solve" in command:
-        sum =  eval(message.replace("this", ""))
+        sum =  eval(message.replace("this", "").replace("solve", ""))
         embed=discord.Embed(title="Query : " + message + "\nAnswer : ",description=sum)
         await ctx.send(embed=embed)
 
@@ -166,13 +154,40 @@ async def m(ctx, *, message, user : discord.Member = None):
         wanted.paste(pfp, (317,369))
         wanted.save("C:/Users/cjpra/Documents/WorkSpace/Memo/src/img/send.png")
         await ctx.send(file=discord.File("C:/Users/cjpra/Documents/WorkSpace/Memo/src/img/send.png"))
-        
-     elif "news" in command:
-        news = news_python.global(key="907d01fc6583481bbb34a32718939993")  
-        news_content = news.get_news(query = "message" , source = "CNN")
+
+    elif "meaning" in command:
+        message = message.replace("meaning of ", "")
+        dictionary = PyDictionary()
+        Dic = dictionary.meaning(message)
+        DicList = list(Dic['Noun'])
+        em=discord.Embed(title=message,color=discord.Color.red(), description=DicList[0])
+        await ctx.send(embed=em)
+
+    elif "news" in command:
+        news = news_python.Global(key= "d8545957252e4d4abfdd4efda04f6a7d")
+        news_content = news.get_news(query="message")
         await ctx.send(news_content.url)
 
+    elif "short" in command:
+        tokens_pool = ['32066d455bc803d779e1c02a1537bc56513a7a90']  
+        shortener = bitlyshortener.Shortener(tokens=tokens_pool, max_cache_size=256)
+        long_urls = [message]
+        alt = shortener.shorten_urls(long_urls)
+        await ctx.send(shortener.usage())
+
+    elif "google" in command:
+        glink = "https://google.com/search?q="
+        await ctx.send(glink)
+
+@client.command()
+async def preverse(ctx,*,msg):
+  m= msg[::-1]
+  await ctx.send(m)
+        
+        
+
+        
+
+    
 keep_alive()
-client.run(os.getenv("TOKEN"))
-
-
+client.run(os.getenv("Token"))
